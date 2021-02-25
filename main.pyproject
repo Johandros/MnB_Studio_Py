@@ -1,0 +1,3 @@
+{
+    "files": ["objects/troop.py","support/hexconverter.py","view3D/library_connect.py","gui/studio.py","support/skillhunter.py","objects/script.py","run.sh","objects/skriptum.py","ms_connect/msinteract.py","main.py","io/codereader.py","LICENSE","support/important.py","gui/form.ui","README.md","support/facefinder.py"]
+}
