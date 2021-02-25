@@ -7,7 +7,8 @@ from PySide2.QtWidgets import QWidget
 from PySide2.QtCore import QFile
 from PySide2.QtUiTools import QUiLoader
 
-# import codereader
+from skriptum import ObjectType as OType
+from codereader import TXT_FILES
 from codereader import CodeReader
 
 
@@ -24,20 +25,21 @@ class Studio(QWidget):
         loader.load(ui_file, self)
         ui_file.close()
 
-    def mbstudio_start(self):
+    def mbstudio_start(self, warband_path):
         # FOR TESTING
-        warband_path = "/home/john/.local/share/Steam/steamapps/common/"
-        base_path = warband_path + "MountBlade Warband/Modules/Native/"
+        base_path = warband_path + "/Modules/Native/"
 
         allObjects = []
 
-        codeReader = CodeReader(base_path + "scripts.txt")
+        codeReader = CodeReader(base_path + TXT_FILES[OType.Script])
         # scripts = codeReader.readScripts()
         # allObjects.append(scripts)
 
-        codeReader = CodeReader(base_path + "troops.txt")
+        codeReader = CodeReader(base_path + TXT_FILES[OType.Troop])
         troops = codeReader.readTroops()
         allObjects.append(troops)
+
+        print([troops[52]])
 
         # print("Scripts: {}".format(len(scripts)))
         print("Troops: {}".format(len(troops)))

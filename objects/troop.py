@@ -52,7 +52,7 @@ class Troop(Skriptum):
     Face2 = ""
 
   # Skills
-    Skills = np.zeros(42, dtype=np.int)
+    Skills = []
 
     # --Persuasion
     @property
@@ -272,7 +272,7 @@ class Troop(Skriptum):
 
 
   # Attributes
-    Attributes = np.zeros(5, dtype=np.int)
+    Attributes = []
 
     # --Strength
     @property
@@ -322,7 +322,7 @@ class Troop(Skriptum):
 
   # Proficiencies
     ProficienciesSC = ""
-    Proficiencies = np.zeros(7, dtype=np.int)
+    Proficiencies = []
 
     # --OneHanded
     @property
@@ -391,6 +391,10 @@ class Troop(Skriptum):
     def __init__(self, values):
         super().__init__(values[0].lstrip().split()[0], ObjectType.Troop)
 
+        self.Skills = np.zeros(42, dtype=np.int)
+        self.Attributes = np.zeros(5, dtype=np.int)
+        self.Proficiencies = np.zeros(7, dtype=np.int)
+
         self.init(values)
         pass
 
@@ -419,7 +423,7 @@ class Troop(Skriptum):
             self.sendErrorMessage(ERROR_MSG_1)
             return
 
-        # self.ID = lineData[0];
+        # self.ID = lineData[0]  # in Skriptum
         self.Name = lineData[1].replace('_', ' ')
         self.PluralName = lineData[2].replace('_', ' ')
 
@@ -455,14 +459,21 @@ class Troop(Skriptum):
         self.Items.clear()
         self.ItemFlags.clear()
 
+        itemsNew = []
+        itemsFlagsNew = []
+
         tmpList = items.strip().split()
-        itemCount = int(len(tmpList) / 2 - 1)
+        itemCount = int(len(tmpList) / 2)  # - 1
+
         for i in range(0, itemCount):
             itemX2 = tmpList[i * 2].strip()
             if itemX2 != "-1" and len(itemX2) != 0:
                 itemFlag = tmpList[i * 2 + 1]
-                self.Items.append(int(itemX2))
-                self.ItemFlags.append(int(itemFlag) >> 24)  # ulong
+                itemsNew.append(int(itemX2))
+                itemsFlagsNew.append(int(itemFlag) >> 24)  # ulong
+
+        self.Items = itemsNew
+        self.ItemsFlags = itemsFlagsNew
 
     def setSceneCode(self, sceneCode):
         self.SceneCodeGZ = int(sceneCode)  # ulong
@@ -487,7 +498,7 @@ class Troop(Skriptum):
             self.Reserved = reserved
 
     def setAttributes(self, attributes):
-        sp = attributes.lstrip().split()
+        sp = attributes.strip().split()
 
         if len(sp) >= 5:
             self.Strength = int(sp[0])
@@ -573,14 +584,12 @@ class Troop(Skriptum):
         sk.ReadSkills(knowledge)
         for i in range(0, len(self.Skills)):
             self.Skills[i] = sk.Skills[i]
-        pass
 
     def setFaceCodes(self, faceCode):
         ff = FaceFinder()
         ff.ReadFaceCode(faceCode)
         self.Face1 = ff.Face1
         self.Face2 = ff.Face2
-        pass
 
 # Rest and Error messages
     def resetIntArrays(self, array):
@@ -632,3 +641,63 @@ class Troop(Skriptum):
 
         retval = msg.exec_()
         return retval
+
+# debug and info
+    def __str__(self):
+        return "" \
+            " - ID: {0}\n" \
+            " - Type: {1}\n" \
+            " - Name: {2}\n" \
+            " - PluralName: {3}\n" \
+            "".format(
+                self.ID,  # General
+                self.Type,
+                self.Name,
+                self.PluralName
+            )
+
+    def __repr__(self):
+        basics = str(self)
+        # UpgradeTroop1ErrorCode - probably redundant
+        # UpgradeTroop2ErrorCode - probably redundant
+        return "Troop:\n" \
+            "{0}" \
+            " - Flags: {1}\n" \
+            " - FlagsGZ: {2}\n" \
+            " - DialogImage: {3}\n" \
+            " - SceneCode: {4}\n" \
+            " - SceneCodeGZ: {5}\n" \
+            " - Reserved: {6}\n" \
+            " - ReservedGZ: {7}\n" \
+            " - FactionID: {8}\n" \
+            " - Items: {9}\n" \
+            " - ItemFlags: {10}\n" \
+            " - UpgradeTroop1: {11}\n" \
+            " - UpgradeTroop2: {12}\n" \
+            " - Face1: {13}\n" \
+            " - Face2: {14}\n" \
+            " - Skills: {15}\n" \
+            " - Attributes: {16}\n" \
+            " - ProficienciesSC: {17}\n" \
+            " - Proficiencies: {18}\n" \
+            "".format(
+                basics,  # General
+                self.Flags,
+                self.FlagsGZ,
+                self.DialogImage,
+                self.SceneCode,
+                self.SceneCodeGZ,
+                self.Reserved,
+                self.ReservedGZ,
+                self.FactionID,  # later maybe faction name or code id
+                self.Items,
+                self.ItemFlags,
+                self.UpgradeTroop1,  # Upgrade Troop
+                self.UpgradeTroop2,
+                self.Face1,  # Faces
+                self.Face2,
+                self.Skills,  # Skills
+                self.Attributes,  # Attributes
+                self.ProficienciesSC,  # Proficiencies
+                self.Proficiencies
+            )

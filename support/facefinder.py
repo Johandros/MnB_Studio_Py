@@ -4,7 +4,7 @@ import hexconverter as hexc
 
 
 class FaceFinder:
-    FaceCodes = ["", ""]
+    FaceCodes = []
 
     # -- Face1
     @property
@@ -24,36 +24,34 @@ class FaceFinder:
     def Face2(self, value):
         self.FaceCodes[1] = value
 
-
     def __init__(self):
-        pass
+        self.FaceCodes = ["", ""]
 
     def ReadFaceCode(self, faceCodeLine):
         sp = faceCodeLine.strip().split()
 
-        Face1 = "0x"
-        Face1 += hexc.Dec2Hex_16CHARS(sp[0])
-        Face1 += hexc.Dec2Hex_16CHARS(sp[1])
-        Face1 += hexc.Dec2Hex_16CHARS(sp[2])
-        Face1 += hexc.Dec2Hex_16CHARS(sp[3])
+        face1 = "0x"
+        face1 += hexc.Dec2Hex_16CHARS(sp[0])
+        face1 += hexc.Dec2Hex_16CHARS(sp[1])
+        face1 += hexc.Dec2Hex_16CHARS(sp[2])
+        face1 += hexc.Dec2Hex_16CHARS(sp[3])
+        self.Face1 = face1
 
-        Face2 = "0x"
-        Face2 += hexc.Dec2Hex_16CHARS(sp[4])
-        Face2 += hexc.Dec2Hex_16CHARS(sp[5])
-        Face2 += hexc.Dec2Hex_16CHARS(sp[6])
-        Face2 += hexc.Dec2Hex_16CHARS(sp[7])
+        face2 = "0x"
+        face2 += hexc.Dec2Hex_16CHARS(sp[4])
+        face2 += hexc.Dec2Hex_16CHARS(sp[5])
+        face2 += hexc.Dec2Hex_16CHARS(sp[6])
+        face2 += hexc.Dec2Hex_16CHARS(sp[7])
+        self.Face2 = face2
 
     def GetFaceCode(self, face1, face2):
-        space = ' '
-        facecode = " "
-
         ff = hexc.Hex2Dec(face2[19:16])
 
         fx2 = int(ff)  # long
         if fx2 > 0:
             ff = str(fx2 - 1)
 
-        facecode += " "
+        facecode = "  "
         facecode += " {}".format(hexc.Hex2Dec(face1[3:16]))
         facecode += " {}".format(hexc.Hex2Dec(face1[19:16]))
         facecode += " {}".format(hexc.Hex2Dec(face1[35:16]))

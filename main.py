@@ -20,6 +20,11 @@ sys.path.append("./files/module_data")
 # FIXME: PYTHONPATH var seems not to be working?
 from studio import Studio
 
+#  @staticmethod¶  # for static methods :P def f(arg1, arg2, ...):
+
+# VARIABLES FOR TESTING
+warband_path = "/home/john/.local/share/Steam/steamapps/common/MountBlade Warband"
+
 
 if __name__ == "__main__":
     app = QApplication([])
@@ -35,6 +40,6 @@ if __name__ == "__main__":
     studio = Studio()
     # studio.show()
 
-    studio.mbstudio_start()
+    studio.mbstudio_start(warband_path)
 
     # sys.exit(app.exec_())

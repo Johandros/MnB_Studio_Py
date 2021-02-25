@@ -5,7 +5,7 @@ from PySide2.QtCore import QObject
 from script import Script
 from troop import Troop
 
-from msinteract import ModuleSystemInteract as MSInteract
+import msinteract
 
 
 # Constants
@@ -17,7 +17,7 @@ FILES_PATH = "./files/"
 MS_DATA_PATH = FILES_PATH + "module_data/"
 MS_FILES_PATH = FILES_PATH + "module_system/"
 
-FILES = (
+TXT_FILES = (
     "scripts.txt",
     "mission_templates.txt",
     "presentations.txt",
@@ -147,14 +147,10 @@ ProjectPath = ""
 
 # TODO: RETHINK LATER!!!
 
-#  @staticmethod¶  # for static methods :P def f(arg1, arg2, ...):
-
-ms = MSInteract()
-
-# ids = ms.importModuleIds(MS_FILES_PATH)
+# ids = msinteract.importModuleIds(MS_FILES_PATH)
 # print(ids)
 
-module_elements = ms.importModuleFiles(MS_FILES_PATH)
+module_elements = msinteract.importModuleFiles(MS_FILES_PATH)
 for i, e in enumerate(module_elements[0]):
     for name in e:
         if name.startswith("factions"):
@@ -163,7 +159,7 @@ for i, e in enumerate(module_elements[0]):
 
 
 Elements = []  # list with lists with element names - use module system
-for i in range(0, len(FILES)):
+for i in range(0, len(TXT_FILES)):
     Elements.append([])  # empty list
 
 
@@ -364,9 +360,6 @@ class CodeReader(QObject):
 
         global ObjectsRead
         ObjectsRead += len(troops)
-
-        print(ObjectsRead)
-        print(ObjectsExpected)
 
         print("readTroops done")
 

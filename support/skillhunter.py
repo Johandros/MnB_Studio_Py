@@ -1,11 +1,9 @@
 # This Python file uses the following encoding: utf-8
 
 import hexconverter as hexc
-from msinteract import ModuleSystemInteract as MsInteract
+import msinteract as msin
 
 SKILL_MASK = 0xFFFFFFFF
-
-msin = MsInteract()
 
 
 class SkillHunter:
@@ -24,13 +22,14 @@ class SkillHunter:
 
     def InitialiseArrays(self):
         header_skills = msin.importHeader("skills", "skl_")
-        # v = getattr(header_skills["module"], header_skills["vars"][5])  # v = 5; skl_x_x
+        # v = 5; skl_x_x
+        # v = getattr(header_skills["module"], header_skills["vars"][5])
 
         self.Skillnames.clear()
         for skill in header_skills["vars"]:
             self.Skillnames.append(skill.lstrip("skl_"))
 
-        #for v in header_skills["vars"]:
+        # for v in header_skills["vars"]:
         #   if (!Skillnames[i].Substring(Skillnames[i].Length - 1).Equals("_"))
         #       Skillnames[i] += '_'
 

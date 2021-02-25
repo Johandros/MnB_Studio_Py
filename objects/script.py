@@ -10,6 +10,7 @@ class Script(Skriptum):
     def __init__(self, raw_data):
         super().__init__(raw_data[0], ObjectType.Script)
 
+        self.Code = []
         for i in range(1, len(raw_data) - 1):
             self.Code.append(raw_data[i])
         pass
