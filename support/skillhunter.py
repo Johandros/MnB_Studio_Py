@@ -17,21 +17,19 @@ class SkillHunter:
     def ReadSkills(self, skillLine):
         self.ResetSkillArray()
         skillLine = skillLine.strip()
-        # StartUpDefault(skillLine.Split())  # only 24 skills
-        self.StartUpAll(skillLine.split())  # all skills (48 - are there more?)
+
+        # only 24 skills
+        # return StartUpDefault(skillLine.Split())
+
+        # all skills (48 - are there more?)
+        return self.StartUpAll(skillLine.split())
 
     def InitialiseArrays(self):
         header_skills = msin.importHeader("skills", "skl_")
-        # v = 5; skl_x_x
-        # v = getattr(header_skills["module"], header_skills["vars"][5])
 
         self.Skillnames.clear()
         for skill in header_skills["vars"]:
             self.Skillnames.append(skill.lstrip("skl_"))
-
-        # for v in header_skills["vars"]:
-        #   if (!Skillnames[i].Substring(Skillnames[i].Length - 1).Equals("_"))
-        #       Skillnames[i] += '_'
 
         self.ResetSkillArray()
 
@@ -88,6 +86,8 @@ class SkillHunter:
         self.Skills[21] = hexValues[4]  # power_strike
         self.Skills[22] = hexValues[5]  # power_throw
         self.Skills[23] = hexValues[6]  # power_draw
+
+        return self.Skills
 
     # All known 48 skills (maybe more available)
     # example: 274 131072 0 1 0 0
@@ -159,7 +159,7 @@ class SkillHunter:
         self.Skills[41] = hexValues[1]  # reserved_XVIII
 
         if len(hexString.lstrip('0')) <= 2:
-            return
+            return self.Skills
 
         # check are there more?
         self.Skills[42] = hexValues[2]  # reserved_XIX ???
@@ -168,3 +168,5 @@ class SkillHunter:
         self.Skills[45] = hexValues[5]  # reserved_XXII ???
         self.Skills[46] = hexValues[6]  # reserved_XXIII ???
         self.Skills[47] = hexValues[7]  # reserved_XXIV ???
+
+        return self.Skills

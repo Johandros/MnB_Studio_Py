@@ -581,9 +581,9 @@ class Troop(Skriptum):
             self.ProficienciesSC = "0"
 
     def setSkills(self, knowledge):
-        sk.ReadSkills(knowledge)
+        skills = sk.ReadSkills(knowledge)
         for i in range(0, len(self.Skills)):
-            self.Skills[i] = sk.Skills[i]
+            self.Skills[i] = skills[i]
 
     def setFaceCodes(self, faceCode):
         ff = FaceFinder()
