@@ -23,9 +23,6 @@ from studio import Studio
 
 #  @staticmethod¶  # for static methods :P def f(arg1, arg2, ...):
 
-# VARIABLES FOR TESTING
-warband_path = "/home/john/.local/share/Steam/steamapps/common/MountBlade Warband"
-
 
 if __name__ == "__main__":
     app = QApplication([])
@@ -39,14 +36,14 @@ if __name__ == "__main__":
     # activateOpenBrf()
 
 
-    configParser = configparser.RawConfigParser()
-    configFilePath = r'./config.local'
+    configParser = configparser.ConfigParser()
+    configFilePath = './config.local'
+    configParser.read(configFilePath)
 
     # later merge both configs for default values
     # in case other values aren't set in local config
     # configFilePath = r'./config.local'
-
-    configParser.read(configFilePath)
+    # print(configParser.sections())
 
     warband_path = configParser.get("warband", "path").strip("\"")
 
