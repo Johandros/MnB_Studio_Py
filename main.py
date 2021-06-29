@@ -1,6 +1,7 @@
 # This Python file uses the following encoding: utf-8
 
 import sys
+import configparser
 
 from PySide2.QtWidgets import QApplication
 
@@ -36,6 +37,19 @@ if __name__ == "__main__":
     # print(testobj)
 
     # activateOpenBrf()
+
+
+    configParser = configparser.RawConfigParser()
+    configFilePath = r'./config.local'
+
+    # later merge both configs for default values
+    # in case other values aren't set in local config
+    # configFilePath = r'./config.local'
+
+    configParser.read(configFilePath)
+
+    warband_path = configParser.get("warband", "path").strip("\"")
+
 
     studio = Studio()
     # studio.show()

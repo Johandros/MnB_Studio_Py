@@ -1,0 +1,10 @@
+# default config
+#######################################################
+# when you are working with git, please create a file
+# called config.local, instead of overwriting
+#######################################################
+
+[warband]
+path = "/home/john/.local/share/Steam/steamapps/common/MountBlade Warband"
+
+

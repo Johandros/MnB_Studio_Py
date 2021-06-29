@@ -1,3 +1,3 @@
 {
-    "files": ["objects/troop.py","support/hexconverter.py","io/codereader.py","objects/script.py","run.sh","gui/form.ui","gui/studio.py","support/important.py","view3D/library_connect.py","support/skillhunter.py","ms_connect/msinteract.py","README.md","LICENSE","objects/skriptum.py","support/facefinder.py","objects/missiontemplate.py","main.py","support/headervariable.py"]
+    "files": ["support/hexconverter.py","objects/troop.py","objects/missiontemplate.py","LICENSE","view3D/library_connect.py","README.md","objects/script.py","support/skillhunter.py","gui/form.ui","objects/skriptum.py","support/headervariable.py","support/important.py","config","ms_connect/msinteract.py","support/facefinder.py","main.py","gui/studio.py","run.sh","io/codereader.py","config.local"]
 }
